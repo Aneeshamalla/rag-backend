@@ -1,0 +1,42 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables (secrets)
+.env
+.env.*
+
+# Git
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tests and docs (optional)
+tests/
+*.md
+*.rst
+
+# Local data and database files
+data/
+*.db
+*.sqlite
+
+# Docker files (not needed inside image)
+Dockerfile
+docker-compose.yml
+.dockerignore

@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pinecone
+# CPU-only PyTorch — prevents downloading triton/CUDA (~2 GB saved)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers
+pypdf
+redis
+groq
+python-dotenv

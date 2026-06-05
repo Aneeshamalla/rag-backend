@@ -2,16 +2,16 @@ from app.utils import get_embedding
 from app.core.pinecone_client import index
 
 
-def retrieve_chunks(query: str, top_k: int = 5) -> list[dict]:
+def retrieve_chunks(query: str, top_k: int = 5) -> list[dict]:  ## SEARCH SIMILAR CHUNKS
     """
     Embed the query and find the top_k most similar chunks in Pinecone.
     """
-    embedding = get_embedding(query)
+    embedding = get_embedding(query) ## text to vectors converted
 
-    result = index.query(
-        vector=embedding,
-        top_k=top_k,
-        include_metadata=True
+    result = index.query(  ## send to pinecone/ vector similarity search
+        vector=embedding,    #sends user qsnvector to pinecone
+        top_k=top_k,  #Return the top most similar chunks
+        include_metadata=True  #Also return extra information stored with each chunk
     )
 
     return [
@@ -50,16 +50,16 @@ def build_prompt(
 
 
     if not context_chunks:
-        context_text = (
+        context_text = (                ## if no document found then tell AI "no info available"
             "No relevant documents were found in the uploaded knowledge base for this query."
         )
     else:
-        context_text = "\n\n".join(
+        context_text = "\n\n".join(       ##if document found, then convert them into readable text 
             f"[Document: {c['filename']}]\n{c['text']}"
             for c in context_chunks
         )
 
-    messages: list[dict] = [{"role": "system", "content": system_msg}]
+    messages: list[dict] = [{"role": "system", "content": system_msg}]   ## Then start preparing AI input, with system instructions
 
     # inject chat history (Redis memory)
     messages.extend(history)

@@ -43,16 +43,16 @@ async def upload_file(
 
    
 
-    index.delete(delete_all=True)
-    delete_all_chunks()
-    vectors = []
-    for i, chunk in enumerate(chunks): ##generates embedding, goes through each chunk 
-        chunk_id = str(uuid.uuid4())
-        embedding = get_embedding(chunk)  ## creates vector
-        vectors.append({
+    index.delete(delete_all=True)  #Deletes old vectors from Pinecone.
+    delete_all_chunks()   #Deletes old SQLite metadata.
+    vectors = []  #Will store all embeddings before uploading to Pinecone.
+    for i, chunk in enumerate(chunks): #Processes chunks one-by-one.
+        chunk_id = str(uuid.uuid4())   #Creates unique chunk ID.
+        embedding = get_embedding(chunk)  #Converts text → vector.
+        vectors.append({   #stores chunk id, embedding vector, and metadata 
             "id": chunk_id,
             "values": embedding,
-            "metadata": {
+            "metadata": {         #Metadata helps retrieval later.
                 "filename": filename,
                 "chunk_index": i,
                 "text": chunk,

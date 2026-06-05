@@ -10,12 +10,12 @@ def get_embedding(text: str) -> list[float]:
     return model.encode(text).tolist()
 
 
-def extract_text_from_txt(content: bytes) -> str:
+def extract_text_from_txt(content: bytes) -> str:      #Converts bytes → readable text.
     return content.decode("utf-8", errors="ignore")
 
 
 def extract_text_from_pdf(content: bytes) -> str:
-    reader = pypdf.PdfReader(io.BytesIO(content))
+    reader = pypdf.PdfReader(io.BytesIO(content))   #Reads PDF.
     return "\n".join(page.extract_text() or "" for page in reader.pages)
 
 

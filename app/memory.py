@@ -10,8 +10,8 @@ HISTORY_LIMIT = 10
 
 def get_history(session_id: str) -> list[dict]:
     try:
-        raw = _client.get(f"chat:{session_id}")
-        return json.loads(raw) if raw else []
+        raw = _client.get(f"chat:{session_id}") #fetches data
+        return json.loads(raw) if raw else []    #loads data
     except redis.exceptions.RedisError:
         # Redis down → return empty memory safely
         return []

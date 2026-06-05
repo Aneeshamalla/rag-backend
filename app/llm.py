@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 _FALLBACK = "LLM service is currently unavailable. Please try again later."
 
-_client = Groq(
+_client = Groq(    # setting up connection to LLM
     api_key=GROQ_API_KEY,
     timeout=30.0,
     max_retries=0,

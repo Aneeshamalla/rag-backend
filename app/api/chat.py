@@ -25,7 +25,8 @@ def chat(request: ChatRequest) -> ChatResponse:
     # 2. Retrieve relevant chunks from Pinecone
     chunks = retrieve_chunks(question, top_k=request.top_k)
     seen: set[str] = set()
-    sources = [c["filename"] for c in chunks if not (c["filename"] in seen or seen.add(c["filename"]))]
+    sources = [c["filename"] for c in chunks if not (c["filename"] in seen or seen.add(c["filename"]))]  
+    #puropse of last two lines: Remove duplicates, Keep only unique source filenames
 
     # 3. Build prompt and get LLM answer
     messages = build_prompt(question, chunks, history)
